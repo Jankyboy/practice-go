@@ -13,4 +13,15 @@ jobs:
       - name: lint
         run: make lint
       - name: test
-        run: make test
+        run: |
+          PKGS=$(python3 -c "
+          import re
+          with open('README.md') as f:
+              for line in f:
+                  if '- [x]' not in line:
+                      continue
+                  m = re.search(r'\[([a-z_]+)\]\(https://github.com/plutov/practice-go/tree', line)
+                  if m:
+                      print('./' + m.group(1) + '/...')
+          " | tr '\n' ' ')
+          go test -race -v $PKGS

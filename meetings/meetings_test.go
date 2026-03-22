@@ -127,8 +127,7 @@ func TestMeetings(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
 			result := Meetings(tt.meetings, tt.rooms)
 			if !reflect.DeepEqual(result, tt.result) {
-				// TODO: use t.Errorf
-				fmt.Printf("Meetings(%v, %v) expected %v, got %v\n", tt.meetings, tt.rooms, tt.result, result)
+				t.Errorf("Meetings(%v, %v) expected %v, got %v\n", tt.meetings, tt.rooms, tt.result, result)
 			}
 		})
 	}
